@@ -6,21 +6,21 @@ const routes = [
     {
         path: "/",
         name: "index",
-        component: () => import("@/page/index/index.vue")
+        component: () => import("@/page/index.vue")
     },
     {
-        path: "/found",
-        name: "found",
-        component: () => import("@/page/found/found.vue")
+        path: "/logindescriptionPage",
+        name: "logindescriptionPage",
+        component: () => import("@/page/logindescriptionPage.vue")
     },
     {
-        path: "/publish",
-        name: "publish",
-        component: () => import("@/page/publish/publish.vue")
+        path: "/FqaDescriptionPage",
+        name: "FqaDescriptionPage",
+        component: () => import("@/page/FqaDescriptionPage.vue")
     }, {
-        path: "/mine",
-        name: "mine",
-        component: () => import("@/page/mine/mine.vue")
+        path: "/logOffPage",
+        name: "logOffPage",
+        component: () => import("@/page/logOffPage.vue")
     }
 ]
 
