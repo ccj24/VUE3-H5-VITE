@@ -104,11 +104,11 @@
             >I'm no longer using an Sihoo device</van-checkbox
           >
           <van-checkbox name="b">Security/privacy concerns</van-checkbox>
-          <van-checkbox name="b">This is a duplicate account </van-checkbox>
-          <van-checkbox name="b"
+          <van-checkbox name="c">This is a duplicate account </van-checkbox>
+          <van-checkbox name="d"
             >Difficulties encoutered during use
           </van-checkbox>
-          <van-checkbox name="b">Other </van-checkbox>
+          <van-checkbox name="e">Other </van-checkbox>
         </van-checkbox-group>
       </div>
       <div style="margin: 1rem 0.2rem">
