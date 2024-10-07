@@ -1,3 +1,8 @@
+/*
+ * @description: 
+ * @param: params
+ * @return: 
+ */
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
@@ -9,8 +14,8 @@ export default defineConfig({
   plugins: [vue()],
   //配置服务，使得可以在手机中浏览
   server: {
-    host: "172.20.0.224",
-    port: "8080",
+    // host: "172.20.0.224",
+    // port: "8080",
     proxy: {
       "/api": {
         target: "http://172.20.0.166:8080/upload", //后端地址

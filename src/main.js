@@ -23,6 +23,7 @@ import {
   List,
   Checkbox,
   CheckboxGroup,
+  Form
 } from "vant";
 //引入样式
 import "vant/lib/index.css";
@@ -42,6 +43,7 @@ app.use(GridItem);
 app.use(List);
 app.use(Checkbox);
 app.use(CheckboxGroup);
+app.use(Form);
 // app.use(ElementPlus);
 app.use(router);
 app.mount("#app");

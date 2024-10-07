@@ -8,8 +8,8 @@
         </div>
         <van-cell-group inset>
           <van-field
-            v-model="username"
-            name="邮箱"
+            v-model="formData.email"
+            name="email"
             label="邮箱"
             placeholder="Please enter your email address"
             :rules="[
@@ -17,16 +17,18 @@
             ]"
           />
           <van-field
-            v-model="password"
+            v-model="formData.password"
             type="password"
-            name="密码"
+            name="password"
             label="密码"
             placeholder="Please enter your password"
             :rules="[{ required: true, message: 'Please enter your password' }]"
           />
         </van-cell-group>
         <div style="margin: 50px 16px 0px">
-          <van-button type="primary" block @click="onSubmit">Login</van-button>
+          <van-button type="primary" block native-type="submit"
+            >Login</van-button
+          >
         </div>
       </van-form>
     </div>
@@ -125,12 +127,16 @@ import { showDialog } from "vant";
 export default {
   name: "CancelAccount",
   setup() {
-    const username = ref("");
-    const password = ref("");
+    const formData = ref({
+      email: null,
+      password: null,
+    });
     const showPage = ref("login");
     const checked = ref([]);
 
     const onSubmit = (values) => {
+      console.log("提交的数据:", values);
+      // 在这里处理表单提交逻辑
       showPage.value = "logindescriptionPage";
     };
     const handView = () => {
@@ -152,8 +158,7 @@ export default {
       });
     };
     return {
-      username,
-      password,
+      formData,
       onSubmit,
       showPage,
       handView,
