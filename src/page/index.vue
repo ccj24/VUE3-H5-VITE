@@ -1,3 +1,8 @@
+<!--
+ * @description: 
+ * @param: params
+ * @return: 
+-->
 <template>
   <div class="cancel-account-page">
     <div class="home-page">
@@ -54,7 +59,8 @@ export default {
       router.push({
         path: "/logindescriptionPage",
         query: {
-          testParam: "131331",
+          email: formData.value.email,
+          token: "xxxxxxx",
         },
       });
     };

@@ -31,30 +31,47 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, watch, reactive } from "vue";
 import { showDialog } from "vant";
 import router from "@/router/index.js";
+import { useRoute } from "vue-router";
 
 export default {
   name: "logindescriptionPage",
   setup() {
+    const route = useRoute();
+    const objData = reactive({
+      token: null,
+      email: null,
+    });
     const handView = () => {
       router.push({
         path: "/FqaDescriptionPage",
-        query: {
-          testParam: "131331",
-        },
+        query: {},
       });
     };
     const handDelete = () => {
       router.push({
         path: "/logOffPage",
         query: {
-          testParam: "131331",
+          ...objData,
         },
       });
     };
-
+    watch(
+      () => route,
+      (newPath, oldPath) => {
+        if (newPath.query) {
+          objData.token = newPath.query.email;
+          objData.email = newPath.query.token;
+        }
+        console.log("==========>watch", newPath, oldPath);
+      },
+      {
+        immediate: true,
+        deep: true,
+      }
+    );
     return {
       handView,
       handDelete,

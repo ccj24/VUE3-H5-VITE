@@ -32,21 +32,26 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, watch, reactive } from "vue";
 import { showDialog } from "vant";
 import router from "@/router/index.js";
+import { useRoute } from "vue-router";
 
 export default {
   name: "CancelAccount",
   setup() {
     const checked = ref([]);
+    const route = useRoute();
+    const dataObj = reactive({
+      token: null,
+      email: null,
+    });
     // 注销账号页
     const handConfirm = () => {
       showDialog({
         title: "",
         confirmButtonText: "I got it.",
-        message:
-          "Your account leiothrixs@foxmail has been successfully cancelled!",
+        message: `Your account ${dataObj.email} has been successfully cancelled!`,
       }).then(() => {
         router.push({
           path: "/",
@@ -54,9 +59,23 @@ export default {
         });
       });
     };
+    watch(
+      () => route,
+      (newPath, oldPath) => {
+        if (newPath.query) {
+          dataObj.token = newPath.query.email;
+          dataObj.email = newPath.query.token;
+        }
+      },
+      {
+        immediate: true,
+        deep: true,
+      }
+    );
     return {
       handConfirm,
       checked,
+      dataObj,
     };
   },
 };
