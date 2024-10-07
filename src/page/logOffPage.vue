@@ -10,7 +10,7 @@
       </div>
       <div class="logOff-tip">Please select the reason for cancellation:</div>
       <div class="logOff-group">
-        <van-checkbox-group v-model="checked" shape="square">
+        <!-- <van-checkbox-group v-model="checked" shape="square">
           <van-checkbox name="a"
             >I'm no longer using an Sihoo device</van-checkbox
           >
@@ -20,13 +20,29 @@
             >Difficulties encoutered during use
           </van-checkbox>
           <van-checkbox name="e">Other </van-checkbox>
-        </van-checkbox-group>
+        </van-checkbox-group> -->
+        <van-form @submit="handConfirm">
+          <van-checkbox-group v-model="formdata.checkboxGroup" shape="square">
+            <van-checkbox
+              v-for="option in options"
+              :name="option"
+              :key="option"
+            >
+              {{ option }}
+            </van-checkbox>
+          </van-checkbox-group>
+          <div style="margin: 16px">
+            <van-button round block type="info" native-type="submit"
+              >提交</van-button
+            >
+          </div>
+        </van-form>
       </div>
-      <div style="margin: 1rem 0.2rem">
+      <!-- <div style="margin: 1rem 0.2rem">
         <van-button round type="primary" block @click="handConfirm"
           >Confirm Cancellation
         </van-button>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -45,6 +61,11 @@ export default {
     const dataObj = reactive({
       token: null,
       email: null,
+    });
+    const options = ["选项A", "选项B", "选项C"];
+
+    const formdata = ref({
+      checkboxGroup: [],
     });
     // 注销账号页
     const handConfirm = () => {
@@ -76,6 +97,7 @@ export default {
       handConfirm,
       checked,
       dataObj,
+      formdata,
     };
   },
 };
