@@ -1,7 +1,7 @@
 /*
- * @description: 
+ * @description:
  * @param: params
- * @return: 
+ * @return:
  */
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
@@ -11,6 +11,7 @@ import { resolve } from "path";
 const pathResolve = (dir) => resolve(__dirname, ".", dir);
 
 export default defineConfig({
+  base: "./", //等同于  assetsPublicPath :'./'
   plugins: [vue()],
   //配置服务，使得可以在手机中浏览
   server: {
@@ -18,7 +19,7 @@ export default defineConfig({
     // port: "8080",
     proxy: {
       "/api": {
-        target: "http://172.20.0.166:8080/upload", //后端地址
+        target: "http://test-us-api.sihoodev.com:7800", //后端地址
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },

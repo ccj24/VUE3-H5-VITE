@@ -42,7 +42,7 @@ export default {
     const route = useRoute();
     const objData = reactive({
       token: null,
-      email: null,
+      userId: null,
     });
     const handView = () => {
       router.push({
@@ -62,8 +62,8 @@ export default {
       () => route,
       (newPath, oldPath) => {
         if (newPath.query) {
-          objData.token = newPath.query.email;
-          objData.email = newPath.query.token;
+          objData.token = newPath.query.token;
+          objData.userId = newPath.query.userId;
         }
         console.log("==========>watch", newPath, oldPath);
       },

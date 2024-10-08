@@ -23,7 +23,8 @@ import {
   List,
   Checkbox,
   CheckboxGroup,
-  Form
+  Form,
+  FloatingBubble  
 } from "vant";
 //引入样式
 import "vant/lib/index.css";
@@ -44,6 +45,7 @@ app.use(List);
 app.use(Checkbox);
 app.use(CheckboxGroup);
 app.use(Form);
+app.use(FloatingBubble);
 // app.use(ElementPlus);
 app.use(router);
 app.mount("#app");

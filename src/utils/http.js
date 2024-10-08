@@ -1,4 +1,4 @@
-import instance from "./axios";
+import instance from "./request";
 
 const post = (url, data) => {
   return new Promise((resolve, reject) => {

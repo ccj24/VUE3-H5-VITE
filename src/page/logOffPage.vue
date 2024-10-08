@@ -10,48 +10,43 @@
       </div>
       <div class="logOff-tip">Please select the reason for cancellation:</div>
       <div class="logOff-group">
-        <!-- <van-checkbox-group v-model="checked" shape="square">
-          <van-checkbox name="a"
-            >I'm no longer using an Sihoo device</van-checkbox
-          >
-          <van-checkbox name="b">Security/privacy concerns</van-checkbox>
-          <van-checkbox name="c">This is a duplicate account </van-checkbox>
-          <van-checkbox name="d"
-            >Difficulties encoutered during use
-          </van-checkbox>
-          <van-checkbox name="e">Other </van-checkbox>
-        </van-checkbox-group> -->
         <van-form @submit="handConfirm">
-          <van-checkbox-group v-model="formdata.checkboxGroup" shape="square">
-            <van-checkbox
-              v-for="option in options"
-              :name="option"
-              :key="option"
+          <van-cell-group inset>
+            <van-checkbox-group
+              v-model="checked"
+              shape="square"
+              :rules="[
+                { required: true, message: 'Please enter your email address' },
+              ]"
             >
-              {{ option }}
-            </van-checkbox>
-          </van-checkbox-group>
+              <van-checkbox name="a"
+                >I'm no longer using an Sihoo device</van-checkbox
+              >
+              <van-checkbox name="b">Security/privacy concerns</van-checkbox>
+              <van-checkbox name="c">This is a duplicate account </van-checkbox>
+              <van-checkbox name="d"
+                >Difficulties encoutered during use
+              </van-checkbox>
+              <van-checkbox name="e">Other </van-checkbox>
+            </van-checkbox-group>
+          </van-cell-group>
           <div style="margin: 16px">
-            <van-button round block type="info" native-type="submit"
+            <van-button round block type="primary" native-type="submit"
               >提交</van-button
             >
           </div>
         </van-form>
       </div>
-      <!-- <div style="margin: 1rem 0.2rem">
-        <van-button round type="primary" block @click="handConfirm"
-          >Confirm Cancellation
-        </van-button>
-      </div> -->
     </div>
   </div>
 </template>
 
 <script>
 import { ref, watch, reactive } from "vue";
-import { showDialog } from "vant";
+import { showDialog, showToast } from "vant";
 import router from "@/router/index.js";
 import { useRoute } from "vue-router";
+import { revokeUser } from "../api/common.js";
 
 export default {
   name: "CancelAccount",
@@ -59,33 +54,42 @@ export default {
     const checked = ref([]);
     const route = useRoute();
     const dataObj = reactive({
+      userId: null,
       token: null,
-      email: null,
     });
-    const options = ["选项A", "选项B", "选项C"];
 
-    const formdata = ref({
-      checkboxGroup: [],
-    });
     // 注销账号页
     const handConfirm = () => {
-      showDialog({
-        title: "",
-        confirmButtonText: "I got it.",
-        message: `Your account ${dataObj.email} has been successfully cancelled!`,
-      }).then(() => {
-        router.push({
-          path: "/",
-          query: {},
+      if (checked.value.length > 0) {
+        showDialog({
+          title: "",
+          confirmButtonText: "I got it.",
+          message: `Your account ${dataObj.email} has been successfully cancelled!`,
+        }).then(async () => {
+          let params = {
+            userId: parseInt(dataObj.userId),
+            token: dataObj.token,
+            verificationType: "EMAIL",
+          };
+          let result = await revokeUser(params);
+          if (result.code === 0) {
+            router.push({
+              path: "/",
+              query: {},
+            });
+          }
+          console.log(result, "result");
         });
-      });
+      } else {
+        showToast("请勾选选项");
+      }
     };
     watch(
       () => route,
       (newPath, oldPath) => {
         if (newPath.query) {
-          dataObj.token = newPath.query.email;
-          dataObj.email = newPath.query.token;
+          dataObj.token = newPath.query.token;
+          dataObj.userId = newPath.query.userId;
         }
       },
       {
@@ -97,7 +101,7 @@ export default {
       handConfirm,
       checked,
       dataObj,
-      formdata,
+      revokeUser,
     };
   },
 };
@@ -132,3 +136,4 @@ export default {
   }
 }
 </style>
+
