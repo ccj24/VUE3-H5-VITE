@@ -81,7 +81,7 @@ export default {
           console.log(result, "result");
         });
       } else {
-        showToast("请勾选选项");
+        showToast("Please check the option");
       }
     };
     watch(

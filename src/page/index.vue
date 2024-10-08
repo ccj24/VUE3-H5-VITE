@@ -9,7 +9,7 @@
       <van-form @submit="onSubmit">
         <div class="topname">SIHOO</div>
         <div class="writing-tip">
-          if you need to delete account,plaase sign in to your account first.
+          If you need to delete account,please sign in to your account first.
         </div>
         <van-cell-group inset>
           <van-field
