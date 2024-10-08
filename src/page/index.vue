@@ -15,7 +15,7 @@
           <van-field
             v-model="formData.email"
             name="email"
-            label="邮箱"
+            label="email"
             placeholder="Please enter your email address"
             :rules="[
               { required: true, message: 'Please enter your email address' },
@@ -25,7 +25,7 @@
             v-model="formData.passwordSalt"
             type="password"
             name="passwordSalt"
-            label="密码"
+            label="password"
             placeholder="Please enter your password"
             :rules="[{ required: true, message: 'Please enter your password' }]"
           />
