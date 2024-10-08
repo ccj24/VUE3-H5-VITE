@@ -46,6 +46,7 @@ export default {
   .FAQdescription {
     padding: 70px 30px;
     font-size: 32px;
+    color: #ffffff;
     .explain-tip1 {
       padding-bottom: 50px;
     }

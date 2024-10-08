@@ -19,7 +19,8 @@ export default defineConfig({
     // port: "8080",
     proxy: {
       "/api": {
-        target: "http://test-us-api.sihoodev.com:7800", //后端地址
+        // target: "http://test-us-api.sihoodev.com:7800", //测试
+        target: "https://us-api.sihoodev.com", //正式
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },

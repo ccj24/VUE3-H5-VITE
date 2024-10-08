@@ -43,6 +43,7 @@ export default {
     const objData = reactive({
       token: null,
       userId: null,
+      email: null,
     });
     const handView = () => {
       router.push({
@@ -64,6 +65,7 @@ export default {
         if (newPath.query) {
           objData.token = newPath.query.token;
           objData.userId = newPath.query.userId;
+          objData.email = newPath.query.email;
         }
         console.log("==========>watch", newPath, oldPath);
       },
@@ -84,6 +86,7 @@ export default {
 .cancel-account-page {
   .logindescription {
     padding: 50px 0 20px 40px;
+    color: #ffffff;
     .logindescription-tip1 {
       font-size: 32px;
       padding-bottom: 50px;

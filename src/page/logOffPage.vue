@@ -32,7 +32,7 @@
           </van-cell-group>
           <div style="margin: 16px">
             <van-button round block type="primary" native-type="submit"
-              >提交</van-button
+              >submit</van-button
             >
           </div>
         </van-form>
@@ -56,6 +56,7 @@ export default {
     const dataObj = reactive({
       userId: null,
       token: null,
+      email: null,
     });
 
     // 注销账号页
@@ -90,6 +91,7 @@ export default {
         if (newPath.query) {
           dataObj.token = newPath.query.token;
           dataObj.userId = newPath.query.userId;
+          dataObj.email = newPath.query.email;
         }
       },
       {
@@ -112,11 +114,12 @@ export default {
   .logOffPage {
     width: 100%;
     font-size: 36px;
+    color: #ffffff;
 
     .logOff {
       height: 2.3rem;
       width: 100%;
-      background-color: #fef1cf;
+      // background-color: #fef1cf;
       padding-top: 0.2rem;
       text-align: center;
     }
@@ -133,7 +136,22 @@ export default {
         font-weight: bold;
       }
     }
+    .van-cell-group {
+      background: transparent;
+      .van-checkbox {
+        .van-checkbox__label {
+          color: #ffffff;
+        }
+      }
+    }
   }
 }
 </style>
-
+<style>
+.van-checkbox__label {
+  color: #ffffff;
+}
+.van-checkbox__icon .van-icon {
+  border: 0.02667rem solid #ffffff;
+}
+</style>

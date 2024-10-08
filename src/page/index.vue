@@ -7,7 +7,9 @@
   <div class="cancel-account-page">
     <div class="home-page">
       <van-form @submit="onSubmit">
-        <div class="topname">SIHOO</div>
+        <div class="topname">
+          <div class="bg"></div>
+        </div>
         <div class="writing-tip">
           If you need to delete account,please sign in to your account first.
         </div>
@@ -15,20 +17,38 @@
           <van-field
             v-model="formData.email"
             name="email"
-            label="email"
+            label=""
             placeholder="Please enter your email address"
             :rules="[
               { required: true, message: 'Please enter your email address' },
             ]"
-          />
+            style="margin-bottom: 20px"
+          >
+            <template #left-icon>
+              <img
+                style="width: 25px; height: 25px"
+                src="@/assets/email.png"
+                alt=""
+              />
+            </template>
+          </van-field>
+
           <van-field
             v-model="formData.passwordSalt"
             type="password"
             name="passwordSalt"
-            label="password"
+            label=""
             placeholder="Please enter your password"
             :rules="[{ required: true, message: 'Please enter your password' }]"
-          />
+          >
+            <template #left-icon>
+              <img
+                style="width: 25px; height: 25px"
+                src="@/assets/password.png"
+                alt=""
+              />
+            </template>
+          </van-field>
         </van-cell-group>
         <div style="margin: 50px 16px 0px">
           <van-button type="primary" block native-type="submit"
@@ -42,10 +62,11 @@
 
 <script>
 import { ref } from "vue";
-import { showDialog } from "vant";
+import { showDialog, showToast } from "vant";
 import router from "@/router/index.js";
 import { login, emailLogin } from "../api/common.js";
 import CryptoJS from "crypto-js";
+import email from "@/assets/email.png";
 
 export default {
   name: "index",
@@ -82,14 +103,17 @@ export default {
       };
       console.log(params, "=============>params");
       let res = await emailLogin(params);
-      if (res.code ===0) {
+      if (res.code === 0) {
         router.push({
           path: "/logindescriptionPage",
           query: {
             userId: res.content.user.userId,
             token: res.content.token,
+            email: values.email,
           },
         });
+      } else {
+        showToast("login failed");
       }
       console.log(res, "=============>res");
       // 在这里处理表单提交逻辑
@@ -127,15 +151,34 @@ export default {
   .home-page {
     margin: 50% 10px;
     .topname {
-      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+
+      .bg {
+        width: 350px; /* 设置图标的宽度 */
+        height: 120px; /* 设置图标的高度 */
+        background-image: url("@/assets/logo.png"); /* 设置图标的图片路径 */
+        background-size: cover; /* 背景图片覆盖整个元素区域 */
+        background-position: center; /* 背景图片居中显示 */
+        background-repeat: no-repeat; /* 背景图片不重复 */
+      }
     }
     .writing-tip {
       font-size: 32px;
       padding: 20px 0 20px 40px;
+      color: #ffffff;
     }
     .van-field {
-      margin: 10px 0;
+      // margin: 30px 0;
       border: solid 1px;
+      border-radius: 15px;
+
+      background: none;
+    }
+    .van-cell-group {
+      background: none;
     }
     .login-btn {
       margin-bottom: 10px;
